@@ -12,10 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    // Saved shortcut item used as a result of an app launch, used later when app is activated.
+    var launchedShortcutItem: UIApplicationShortcutItem?
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        var shouldPerformAdditionalDelegateHandling = true
+        // If a shortcut was launched, display its information and take the appropriate action
+        if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+            
+            launchedShortcutItem = shortcutItem
+            
+            // This will block "performActionForShortcutItem:completionHandler" from being called.
+            shouldPerformAdditionalDelegateHandling = false
+        }
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         let main = MainViewController()
         window?.rootViewController = UINavigationController(rootViewController: main)
@@ -33,12 +44,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // Update the application providing the initial 'dynamic' shortcut items.
             application.shortcutItems = [shortcut2, shortcut3, shortcut4]
         }
-        return true
+        return shouldPerformAdditionalDelegateHandling;
     }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    }
+    
+    func handleShortCutItem(item: UIApplicationShortcutItem) ->Bool {
+        let handled = true;
+        let navi = self.window!.rootViewController as? UINavigationController
+        let main = navi!.viewControllers[0] as? MainViewController;
+        main!.handleTheShortCutItem(item);
+        return handled;
+    
     }
 
     func applicationDidEnterBackground(application: UIApplication) {

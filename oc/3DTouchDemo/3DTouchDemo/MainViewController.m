@@ -115,6 +115,16 @@
 #pragma mark - Public Func
 - (void)handleTheShortCutItem:(UIApplicationShortcutItem *)item
 {
+    if ([item.type isEqualToString:@"First"]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"ShortCut" message:item.localizedTitle preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+
+    } else {
+        DetailViewController *detail = [[DetailViewController alloc] init];
+        detail.shortcutItem = item;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
 }
 
 #pragma mark - Getter
@@ -159,11 +169,6 @@
 
 - (NSArray *)sampleData
 {
-//    let sampleData = [
-//                      PreviewDetail(title: "Small", preferredHeight: 160.0),
-//                      PreviewDetail(title: "Medium", preferredHeight: 320.0),
-//                      PreviewDetail(title: "Large", preferredHeight: 0.0) // 0.0 to get the default height.
-//                      ]
     if (_sampleData == nil) {
         _sampleData = @[@{@"title": @"Small", @"preferredHeight": @(160.0)},
                         @{@"title": @"Medium", @"preferredHeight": @(320.0)},
@@ -172,6 +177,7 @@
     }
     return _sampleData;
 }
+
 
 
 

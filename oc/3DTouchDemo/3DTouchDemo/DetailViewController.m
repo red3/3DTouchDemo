@@ -29,9 +29,19 @@
     [self.view addSubview:previewingLabel];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - Getter
+- (NSArray <id <UIPreviewActionItem>> *)previewActionItems
+{
+    // set the previewItems
+    // avoid the retain cycel
+    // __weak MainViewController *weakSelf = self;
+    UIPreviewAction *item1 = [UIPreviewAction actionWithTitle:@"Share" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        
+    }];
+    UIPreviewAction *item2 = [UIPreviewAction actionWithTitle:@"Delete" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+        
+    }];
+    return @[item1, item2];
 }
 
 

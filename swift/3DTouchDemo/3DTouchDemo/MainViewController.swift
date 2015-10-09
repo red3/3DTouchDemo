@@ -150,4 +150,9 @@ class MainViewController: UITableViewController {
         self.navigationController?.pushViewController(detail, animated: true)
     }
     
+    // MARK: Public func
+    public func handleTheShortCutItem(item: UIApplicationShortcutItem) {
+        
+    }
+    
 }

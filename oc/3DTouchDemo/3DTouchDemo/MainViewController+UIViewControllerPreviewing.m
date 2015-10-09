@@ -17,13 +17,19 @@
     // Obtain the index path and the cell that was pressed.
     // guard let indexPath = tableView.indexPathForRowAtPoint(location),
     NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    if (indexPath.section == 0) {
+        // no peek for the first section
+        return nil;
+    }
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
+        // no peek
         return nil;
     }
     
     // Create a detail view controller and set its properties.
     DetailViewController *detail = [[DetailViewController alloc] init];
+    
     
     
     NSDictionary *previewDetail = self.sampleData[indexPath.row];
@@ -37,10 +43,10 @@
     
     // Set the source rect to the cell frame, so surrounding elements are blurred.
     previewingContext.sourceRect = cell.frame;
-    
     return detail;
     
 }
+
 
 /// Present the view controller for the "Pop" action.
 - (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit
