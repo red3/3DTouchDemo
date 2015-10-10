@@ -151,7 +151,19 @@ class MainViewController: UITableViewController {
     }
     
     // MARK: Public func
-    public func handleTheShortCutItem(item: UIApplicationShortcutItem) {
+    func handleTheShortCutItem(item: UIApplicationShortcutItem) {
+        if item.localizedTitle == "First" {
+           let alert = UIAlertController(title: "ShortCut", message: item.localizedTitle, preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) -> Void in
+                
+            }))
+            presentViewController(alert, animated: true, completion: nil);
+            
+        } else {
+            let detail = DetailViewController()
+            detail.shortcutItem = item
+            self.navigationController?.pushViewController(detail, animated: true)
+        }
         
     }
     

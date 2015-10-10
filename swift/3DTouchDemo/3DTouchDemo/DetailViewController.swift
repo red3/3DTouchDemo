@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
     // Used to show the infomation when this controller is poped by 3DTouch
     var previewingTitle: String = "";
     
+    // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.whiteColor()
@@ -28,5 +29,17 @@ class DetailViewController: UIViewController {
         previewingLabel.textAlignment = .Center
         view.addSubview(previewingLabel)
     }
-
+    
+    // MARK: Getter
+    override func previewActionItems() -> [UIPreviewActionItem] {
+        //
+        // set the previewItems
+        let item1 = UIPreviewAction(title: "Share", style: .Default, handler: { (action, previewViewController) -> Void in
+            
+        })
+        let item2 = UIPreviewAction(title: "Share", style: .Default, handler: { (action, previewViewController) -> Void in
+            
+        })
+        return [item1, item2];
+    }
 }
